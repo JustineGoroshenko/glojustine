@@ -28,8 +28,8 @@ console.log('Thank you for your time')// :)
 money = +prompt('Your monthly earnings?');
 console.log(money);
 //3.3
-addExpenses = prompt('Please, list your potential expenditure', ' ,     , ');
-console.log(addExpenses);
+addExpenses = prompt('Please, list your potential expenditure');
+console.log(addExpenses.toLowerCase().split(', '));
 //3.4
 deposit = confirm('Press ok if you have a saving account');
 console.log(deposit);
