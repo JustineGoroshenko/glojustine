@@ -48,9 +48,6 @@ let mainExpenditures = prompt('Please list your main expenditures'),
    budgetPerDay = Math.floor(budgetMonth/30);
    console.log('Daily budget is: ' + budgetPerDay + '£ per day');
 //3.9
-
-
-
 if( budgetPerDay > 120 ){
    console.log("you have a high amount of income");
 }
