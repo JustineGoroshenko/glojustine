@@ -1,19 +1,34 @@
 'use strict';
 
 
-//4.1
+//5.1
+let arr = ['123', '453',  '222', '3333', '4455', '678', '9999', '252', '987'];
+
+arr.forEach((item) => {
+
+      if (item.startsWith('2') || item.startsWith('4')){
+         console.log(item);
+      };
+   }) 
 
 
-   let str ='';
-function bonbon(object){
-   if(typeof object !== 'string'){
-      alert('Not a string!');
-   } else {
-        str = object.trim().slice(0, 30) + "...";
-       return str;
+   //5.2
+   let numbers = [],
+   primes = [];
+
+
+   for(let i = 2;i<=100;i++){
+    numbers.push(i);   
    }
-}
-
-bonbon('   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem quod unde enim dolorem iusto modi voluptate!            ');
-bonbon(5);
-console.log(str);
+   while(numbers.length){
+       primes.push(numbers.shift());
+       numbers = numbers.filter(
+           function(i){
+              return i%primes[primes.length-1]!=0}
+       );  
+   }
+   for(var i=0;i<primes.length;i++){
+      primes[i] = primes[i] + " Can be divided by 1 and " + primes[i];
+  }
+   
+   console.log(primes);
