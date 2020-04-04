@@ -1,60 +1,81 @@
 'use strict';
 
+let isNumber = function(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);   //isFinite is it is infinitive it will give you a false
+    //if the input is not Namber it will question again(return) 
+}
+
+
 let money = '2000',
-income = "job",
-deposit = true,
+income = "",
 mission = '5000',
-period = 12,
-budgetPerDay = (money/30),
-addExpenses = 'Taxes, Scholarship, Food';
-//1
+period = '',
+budgetPerDay = '',
+addExpenses = '';
+//1 
+//CHECKING THE QUALITY OF SUBMIYTTED INFORMATION
+  // while(isNaN(money) || money.trim() === '' || money === null ) {
+
+let start = function() {
+   do { money = prompt('Your monthly earnings?', '1000');}
+   while (!isNumber(money));
+   console.log('Your monthly earnings are: ' + money + '£');
+}
+start();
+
+
 console.log(typeof deposit);
 console.log(typeof income);
 console.log(typeof money);
-//2
-console.log(addExpenses.length);
-//3
-console.log('Период равен ' + period + ' месяцев и Цель заработать ' + mission + ' Euro');
-//4
-console.log(addExpenses.toLowerCase().split(', '));
-//5
-console.log(budgetPerDay + ' euro') ;
-console.log('Thank you for your time')// :)
-
-
-
-
 //3.2
-money = +prompt('Your monthly earnings?');
-console.log(money);
+
 //3.3
-addExpenses = prompt('Please, list your potential expenditure');
+addExpenses = prompt('Please, list your potential expenditure', "coca, para, chico loco");
 console.log(addExpenses.toLowerCase().split(', '));
-//3.4
-deposit = confirm('Press ok if you have a saving account');
-console.log(deposit);
 //3.5
-let mainExpenditures = prompt('Please list your main expenditures'),
-    secExpenditures = prompt('Please list your secondary expenditures'),
-    mainExpenses = +prompt('Amount of the main expenses'),
-    secExpenses = +prompt('Amount of secondary expenses'),
-//3.6 
-    budgetMonth = money - (mainExpenses + secExpenses);
-    console.log(budgetMonth);
-//3.7
-   period =  Math.ceil((mission/budgetMonth));
-   console.log('Goal will be achieved in ' + period + ' months');
-//3.8
-   budgetPerDay = Math.floor(budgetMonth/30);
-   console.log('Daily budget is: ' + budgetPerDay + '£ per day');
-//3.9
-if( budgetPerDay > 120 ){
-   console.log("you have a high amount of income");
+/*let mainExpenses = +prompt('Amount of the main expenses', '200'),
+    secExpenses = +prompt('Amount of secondary expenses', '100');
+//4.1*/
+
+let expenses = [];
+
+let getExpensesMonth = function() {
+   let sum = 0;
+    for(let i = 0; i < 2; i++){
+          expenses[i] = prompt('List your expenses', 'rent, fuel');
+         do { sum += +prompt('How much would it cost?');
+    } while (!isNumber(sum));
+   
+    };
+    return +sum;   
 }
-else if(  budgetPerDay >= 60 && budgetPerDay <= 120){
-   console.log("you have a moderate amount of income");
-} else if( budgetPerDay >= 0 && budgetPerDay <= 60){
-   console.log("you have a low amount of income");
-} else if(budgetPerDay <= 0) {
-   console.log("ups");
+
+let expensesAmount = getExpensesMonth();
+console.log('Expenses: ' + expensesAmount); 
+
+//4.2, 4.3
+
+let getAccumulatedMonth = function(){
+   return money - expensesAmount; 
 }
+let accumulatedMonth = getAccumulatedMonth();
+
+console.log('Monthly savings: ' + accumulatedMonth + "£");
+//4.4
+let  getTargetMonth = function(){
+
+   if( accumulatedMonth <= 0){
+      console.log('no money');
+      return false;
+   } else{
+      return Math.ceil(mission / accumulatedMonth);
+     
+   }
+    console.log('Goal will be achieved in ' + getTargetMonth() + ' months');
+}
+
+//4.5
+
+budgetPerDay = Math.floor(accumulatedMonth/30);
+console.log( 'Your budget per day: ' + budgetPerDay + "£");
+
