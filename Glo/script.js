@@ -2,7 +2,7 @@
 
 let isNumber = function(n) {
       return !isNaN(parseFloat(n)) && isFinite(n);   //isFinite is it is infinitive it will give you a false
-    //if the input is not Namber it will question again(return) 
+    //if the input is not Number it will question again(return) 
 }
 
 
@@ -40,12 +40,14 @@ console.log(addExpenses.toLowerCase().split(', '));
 let expenses = [];
 
 let getExpensesMonth = function() {
-   let sum = 0;
+   let sum = 0, amountItem = 0;
+
     for(let i = 0; i < 2; i++){
           expenses[i] = prompt('List your expenses', 'rent, fuel');
-         do { sum += +prompt('How much would it cost?');
-    } while (!isNumber(sum));
-   
+         do {
+             amountItem = prompt('How much would it cost?');
+    } while (!isNumber(amountItem));
+      sum += +amountItem;
     };
     return +sum;   
 }
@@ -64,12 +66,13 @@ console.log('Monthly savings: ' + accumulatedMonth + "£");
 //4.4
 let  getTargetMonth = function(){
 
-   if( accumulatedMonth <= 0){
+   
+   if( money <= expensesAmount){
       console.log('no money');
-      return false;
+      
    } else{
+      
       return Math.ceil(mission / accumulatedMonth);
-     
    }
     console.log('Goal will be achieved in ' + getTargetMonth() + ' months');
 }
