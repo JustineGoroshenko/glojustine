@@ -35,13 +35,11 @@ console.log(addExpenses.toLowerCase().split(', '));
 //3.5
 /*let mainExpenses = +prompt('Amount of the main expenses', '200'),
     secExpenses = +prompt('Amount of secondary expenses', '100');
-//4.1*/
 
+5.1*/
 let expenses = [];
-
 let getExpensesMonth = function() {
    let sum = 0, amountItem = 0;
-
     for(let i = 0; i < 2; i++){
           expenses[i] = prompt('List your expenses', 'rent, fuel');
          do {
@@ -51,41 +49,29 @@ let getExpensesMonth = function() {
     };
     return +sum;   
 }
-
 let expensesAmount = getExpensesMonth();
 console.log('Expenses: ' + expensesAmount); 
 
-//4.2, 4.3
+//
 
 let getAccumulatedMonth = function(){
    return money - expensesAmount; 
 }
 let accumulatedMonth = getAccumulatedMonth();
-
 console.log('Monthly savings: ' + accumulatedMonth + "£");
 
-
-
-
-
-
-
-
-//4.4
-let o = '';
+//5.2, 5.3
 let  getTargetMonth = function(){
      return Math.ceil( mission / accumulatedMonth); 
    }
     period = getAccumulatedMonth();
-
-if(period > 0){
-   console.log('You will achieve your goal in '+ period + ' months');
-} else {
-  console.log('Goal is not achievable');
-};
+   if(period > 0){
+     console.log('You will achieve your goal in '+ period + ' months');
+   } else {
+    console.log('Goal is not achievable');
+   };
 
 //4.5  console.log('Goal will be achieved in ' + baba + ' months');
-
 budgetPerDay = Math.floor(accumulatedMonth/30);
 console.log( 'Your budget per day: ' + budgetPerDay + "£");
 
