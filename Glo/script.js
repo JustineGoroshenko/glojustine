@@ -45,7 +45,7 @@ let getExpensesMonth = function() {
     for(let i = 0; i < 2; i++){
           expenses[i] = prompt('List your expenses', 'rent, fuel');
          do {
-             amountItem = prompt('How much would it cost?');
+             amountItem = prompt('How much would it cost?', "1100");
     } while (!isNumber(amountItem));
       sum += +amountItem;
     };
@@ -63,21 +63,28 @@ let getAccumulatedMonth = function(){
 let accumulatedMonth = getAccumulatedMonth();
 
 console.log('Monthly savings: ' + accumulatedMonth + "£");
+
+
+
+
+
+
+
+
 //4.4
+let o = '';
 let  getTargetMonth = function(){
-
-   
-   if( money <= expensesAmount){
-      console.log('no money');
-      
-   } else{
-      
-      return Math.ceil(mission / accumulatedMonth);
+     return Math.ceil( mission / accumulatedMonth); 
    }
-    console.log('Goal will be achieved in ' + getTargetMonth() + ' months');
-}
+    period = getAccumulatedMonth();
 
-//4.5
+if(period > 0){
+   console.log('You will achieve your goal in '+ period + ' months');
+} else {
+  console.log('Goal is not achievable');
+};
+
+//4.5  console.log('Goal will be achieved in ' + baba + ' months');
 
 budgetPerDay = Math.floor(accumulatedMonth/30);
 console.log( 'Your budget per day: ' + budgetPerDay + "£");
