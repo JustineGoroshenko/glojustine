@@ -15,82 +15,75 @@ start();
 
 let appData = {
   budget: money,
-  income: {},
-  addIncome: [],
+  //income: {},
+  expensesMonth: 0,
+ // addIncome: [],
   expenses: {},
   addExpenses: [],
   deposit: false,
   mission: 5000,
-  //
+  budgetMonth: 0,
+  goal: 0,
+  budgetDay: 0,
   asking: function(){
     let addExpenses = prompt('Please, list your potential expenditure', "coca, para, chico, loco");
     appData.addExpenses = addExpenses.toLowerCase().split(', ');
     appData.deposit = confirm('Do you have a saving account?');
+    appData.statusInformation = appData.getStatusIncome();
+    let sum = 0, amountItem = 0;
+    for(let i = 0; i < 2; i++){         
+          do {
+          amountItem = prompt('List your expenses', 'rent, fuel');
+          } while(!(amountItem !=='' && amountItem !== null && typeof('amountItem') !== 'undefined'));
+          do {
+            sum = prompt('How much would it cost?', "100");
+          } while (!isNumber(sum));
+              sum = +sum;
+              appData.expenses[amountItem] = sum;        
+    } 
   },
-
-  //All expenses
-  expensesAmount: 0,//expensesMonth
-  getExpensesMonth: function(){
-  let sum = 0, amountItem = 0;
-    for(let i = 0; i < 2; i++){
-          appData.expenses[i] = prompt('List your expenses', 'rent, fuel');
-         do {
-             amountItem = prompt('How much would it cost?', "100");
-    } while (!isNumber(amountItem));
-      sum += +amountItem;
-    };
-    return +sum;   
-  },
-
-  //Net Budget per Month
-  accumulatedMonth: 0,//budgetMonth
-  getAccumulatedMonth: function(){
-    return money - expensesAmount; 
-  },
-  
-  //AVAILABLE BUDGET PER DAY
-  budgetDay: 0,
-  budgetPerDay: function(){//budgetDay
-     return Math.floor(accumulatedMonth / 30);
-  }, 
  
-  ///period of months you will achieve the goal
-  period: 0,
-  getTargetMonth: function(){
-  return  Math.ceil(appData.mission /accumulatedMonth); 
+  getExpensesMonth: function(){
+    for (let key in appData.expenses){
+      appData.expensesMonth += +appData.expenses[key];
+    } return;
+  },
+  //Net Budget per Month& day
+  getBudget: function(){
+    appData.budgetMonth = appData.budget - appData.expensesMonth; 
+    appData.budgetDay = Math.floor(appData.budgetMonth / 30);
   },
 
+  ///period of months you will achieve the goal
+  getTargetMonth: function(){
+    appData.goal =  Math.ceil(appData.mission / appData.budgetMonth); 
+  },
   //Will goal be achieved?
-  achievable: '',
-  getAchievable: function(){
-      if(accumulatedMonth > 0){
-      return console.log('You will achieve your goal in '+ period + ' months');
-    } else {
-    return console.log('Goal is not achievable');
-    }
-}
-
+  getStatusIncome: function(){
+    if( appData.budgetDay > 120 ){
+      console.log("You have a high amount of income");
+   }
+   else if(  appData.budgetDay >= 60 && appData.budgetDay <= 120){
+      return ("You have a moderate amount of income");
+   } else if( appData.budgetDay >= 0 && appData.budgetDay <= 60){
+    return ("You have a low amount of income");
+   } else if(appData.budgetDay <= 0) {
+    return ("Ups, something went wrong...");
+   }
+  },
 };
+
 appData.asking();
-//expenses
-let expensesAmount = appData.getExpensesMonth();
-console.log('Expenses: ' + expensesAmount);
+appData.getExpensesMonth();
+appData.getBudget();
+appData.getTargetMonth();
+appData.getStatusIncome();
 
-//Savings per month
-let accumulatedMonth = appData.getAccumulatedMonth();
-console.log('Monthly savings: ' + accumulatedMonth + "£");
-
-
-//budget per day
-let budgetDay = appData.budgetPerDay(); 
-console.log( 'Your budget per day: ' + budgetDay + "£");
-console.log(budgetDay);
-
-let period = appData.getTargetMonth();
-let achievable = appData.getAchievable();
-
-
-
+console.log('Your expenses are: ' + appData.expensesMonth);
+console.log('Goal will be achieved in ' + appData.goal + ' months');
+ for (let key in appData){
+      console.log('Наша программа включает в себя данные: key: '+ key + 'value: ' + appData[key]);
+    }
 /*
 
 
