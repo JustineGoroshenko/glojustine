@@ -1,8 +1,10 @@
 'use strict';
 
 let isNumber = function(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);   //isFinite is it is infinitive it will give you a false
-//if the input is not Number it will question again(return) 
+  return !isNaN(parseFloat(n)) && isFinite(n);  
+}
+let isString = function(n){
+  return isNaN(n) && n !== '' && n !== NaN && n !== null && typeof(n) !== 'undefined';
 }
 
 let money = '',
@@ -15,26 +17,44 @@ start();
 
 let appData = {
   budget: money,
-  //income: {},
+  income: {},
   expensesMonth: 0,
- // addIncome: [],
+  addIncome: [],
   expenses: {},
   addExpenses: [],
   deposit: false,
   mission: 5000,
+  percentDeposit: 0,
+  moneyDeposit: 0,
   budgetMonth: 0,
   goal: 0,
+  period: 3,
   budgetDay: 0,
   asking: function(){
-    let addExpenses = prompt('Please, list your potential expenditure', "coca, para, chico, loco");
+    if(confirm('Do you have any additional income?')){
+      let itemIncome = 0, cashIncome = 0;
+
+      do {
+        itemIncome = prompt('What is your additional income?');
+        } while(!isString(itemIncome));
+        do {
+        cashIncome = prompt('The amount of additional income', '1000');
+        } while (!isNumber(cashIncome));
+
+          appData.income[itemIncome] = cashIncome;    
+    }
+
+    let addExpenses = 0;
+    do{ addExpenses = prompt('Please, list your main expenditure', "Living Expenses");}
+    while(!isString(addExpenses));
     appData.addExpenses = addExpenses.toLowerCase().split(', ');
     appData.deposit = confirm('Do you have a saving account?');
     appData.statusInformation = appData.getStatusIncome();
     let sum = 0, amountItem = 0;
     for(let i = 0; i < 2; i++){         
           do {
-          amountItem = prompt('List your expenses', 'rent, fuel');
-          } while(!(amountItem !=='' && amountItem !== null && typeof('amountItem') !== 'undefined'));
+          amountItem = prompt('List your essential expenses', 'rent, fuel');
+          } while(!isString(amountItem));
           do {
             sum = prompt('How much would it cost?', "100");
           } while (!isNumber(sum));
@@ -54,7 +74,7 @@ let appData = {
     appData.budgetDay = Math.floor(appData.budgetMonth / 30);
   },
 
-  ///period of months you will achieve the goal
+  ///mission of months you will achieve the goal
   getTargetMonth: function(){
     appData.goal =  Math.ceil(appData.mission / appData.budgetMonth); 
   },
@@ -71,6 +91,18 @@ let appData = {
     return ("Ups, something went wrong...");
    }
   },
+  getInfoDeposit: function(){
+      if(appData.deposit){
+        do {appData.percentDeposit = prompt('What is the interest rate?', '0.03');}
+      while (!isNumber(appData.percentDeposit));
+      do {appData.moneyDeposit = prompt('The amount of saving account', '10000')}
+      while (!isNumber(appData.moneyDeposit));
+      }
+  },
+  calcSaveMoney: function(){
+    return appData.budgetMonth * appData.period;
+  }
+
 };
 
 appData.asking();
@@ -78,13 +110,19 @@ appData.getExpensesMonth();
 appData.getBudget();
 appData.getTargetMonth();
 appData.getStatusIncome();
+appData.getInfoDeposit();
+appData.calcSaveMoney();
+
+
+
 
 console.log('Your expenses are: ' + appData.expensesMonth);
-console.log('Goal will be achieved in ' + appData.goal + ' months');
- for (let key in appData){
-      console.log('Наша программа включает в себя данные: key: '+ key + 'value: ' + appData[key]);
-    }
-/*
+console.log('mission will be achieved in ' + appData.goal + ' months');
+ console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSaveMoney());
 
+/*
+for(var key in objects) {
+    var value = objects[key];
+}
 
  };*/
