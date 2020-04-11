@@ -35,7 +35,7 @@ let appData = {
       let itemIncome = 0, cashIncome = 0;
 
       do {
-        itemIncome = prompt('What is your additional income?');
+        itemIncome = prompt('What is your additional income?', '500');
         } while(!isString(itemIncome));
         do {
         cashIncome = prompt('The amount of additional income', '1000');
@@ -45,9 +45,14 @@ let appData = {
     }
 
     let addExpenses = 0;
-    do{ addExpenses = prompt('Please, list your main expenditure', "Living Expenses");}
+    do{ addExpenses = prompt('Please, list your main expenditure', "living expenses tralivali");}
     while(!isString(addExpenses));
-    appData.addExpenses = addExpenses.toLowerCase().split(', ');
+
+    appData.addExpenses = addExpenses.toLowerCase()
+        .split(' ')// each word split from eachother
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))//separately capitalysing 1st letter and adding the rest
+        .join(', ');// separating by coma and space
+
     appData.deposit = confirm('Do you have a saving account?');
     appData.statusInformation = appData.getStatusIncome();
     let sum = 0, amountItem = 0;
@@ -118,7 +123,8 @@ appData.calcSaveMoney();
 
 console.log('Your expenses are: ' + appData.expensesMonth);
 console.log('mission will be achieved in ' + appData.goal + ' months');
- console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSaveMoney());
+console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSaveMoney());
+console.log(appData.addExpenses);
 
 /*
 for(var key in objects) {
@@ -126,3 +132,13 @@ for(var key in objects) {
 }
 
  };*/
+ 
+
+
+
+
+  
+    //
+    
+     //a.toLowerCase();
+     //a.charAt(0).toUpperCase() + a.substr(1) +
