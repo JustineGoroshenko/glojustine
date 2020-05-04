@@ -50,9 +50,15 @@ let btnStart = document.querySelector('#start'),
      goal: 0,
      budgetDay: 0,
      validateButton: function(){
+      
       if(salaryAmount.value === ''){
-        alert('The window Месячный доход must be fulfilled');
-        return;};
+        salaryAmount.setAttribute('placeholder', 'Please enter the monthly income!');
+        btnStart.disabled = true;
+      } else {
+        btnStart.disabled = false;
+        appData.start();
+        return;          
+      }
      },
      start: function() {
   
@@ -196,8 +202,8 @@ let btnStart = document.querySelector('#start'),
      }
    
    };
+   //btnStart.addEventListener('click', appData.validateButton);
    btnStart.addEventListener('click', appData.validateButton);
-   start.addEventListener('click', appData.start);
    expensesPlus.addEventListener('click', appData.addExpensesBlock);
    incomePlus.addEventListener('click', appData.addIncomeBlock);
    periodSelect.addEventListener('change', appData.showResult);
