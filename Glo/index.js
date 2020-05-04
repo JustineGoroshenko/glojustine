@@ -85,9 +85,11 @@ let btnStart = document.querySelector('#start'),
         expensesMonthValue.value = appData.expensesMonth;
         additionalExpensesValue.value = appData.addExpenses.join(', ');
         additionalIncomeValue.value = appData.addIncome.join(', ');
-        periodAmount.innerHTML = periodSelect.value;
         targetMonthValue.value = appData.getTargetMonth();
-        incomePeriodValue.value = appData.calcSaveMoney();
+
+        periodSelect.addEventListener('input', function(){
+          incomePeriodValue.value = appData.calcSaveMoney();
+        })
      },
    
      addExpensesBlock: function(){
@@ -206,7 +208,10 @@ let btnStart = document.querySelector('#start'),
    btnStart.addEventListener('click', appData.validateButton);
    expensesPlus.addEventListener('click', appData.addExpensesBlock);
    incomePlus.addEventListener('click', appData.addIncomeBlock);
-   periodSelect.addEventListener('change', appData.showResult);
+
+   periodSelect.addEventListener('input', function(){
+     periodAmount.textContent = periodSelect.value;
+   });
 
 
   
