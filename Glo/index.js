@@ -207,15 +207,29 @@ let btnStart = document.querySelector('#start'),
      reset(){
       var allElements = inputs;
       for (var i = 0, l = allElements.length; i < l; ++i) {
-       allElements[i].disabled=true;
-        }
+       allElements[i].disabled=true;}//disabling all the inputs
       btnStart.style.display = "none";
-      btnCancel.style.display = "block";
-     
+      btnCancel.style.display = "block";//toggle the buttons
+
+
+      btnCancel.addEventListener('click', function(){  
+      var allElements = inputs;
+      for (var i = 0; i < allElements.length; ++i) {
+       allElements[i].disabled = false;  //unabling the inputs
+            if (allElements[i].type == 'text') {
+            allElements[i].value = '';}//clearing the value
+        };
+        periodSelect.value = 1;
+        periodAmount.innerHTML = periodSelect.value;
+        btnCancel.style.display = "none"; 
+        btnStart.style.display = "block";
+        
+     });
+
      }
    
    };
-   //btnCancel.addEventListener('click', appData.start.bind(appData));
+   
    btnStart.addEventListener('click', appData.start.bind(appData));
    expensesPlus.addEventListener('click', appData.addExpensesBlock.bind(appData));
    incomePlus.addEventListener('click', appData.addIncomeBlock.bind(appData));
