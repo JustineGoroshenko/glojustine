@@ -212,7 +212,7 @@ let btnStart = document.querySelector('#start'),
             periodAmount.innerHTML = periodSelect.value;
         };
         eventListeners(){  
-            btnStart.addEventListener('click', this.buttonValidate.bind(appData));
+            btnStart.addEventListener('click', this.buttonValidate.bind(this));
             btnCancel.addEventListener('click',this.restart.bind(this));
             expensesPlus.addEventListener('click', this.addExpensesBlock.bind(this));
             incomePlus.addEventListener('click', this.addIncomeBlock.bind(this)); 
@@ -222,14 +222,6 @@ let btnStart = document.querySelector('#start'),
             });
           };
    };
-
-   
-  
-
-
- 
-
-
    const appData = new AppData();
-   AppData.prototype.eventListeners();
+   appData.eventListeners();
    
