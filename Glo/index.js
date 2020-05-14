@@ -174,23 +174,20 @@ let btnStart = document.querySelector('#start'),
          const valueSelect = this.value;
           if(valueSelect === "other"){
              depositPercent.style.display = "inline-block";
-             depositPercent.addEventListener("keyup" ,function(e) {
-               const input = parseInt(this.value);
-                if (input < 0 || input > 100 || e.key.length === 1 && e.key !== '.' && isNaN(e.key) && !e.ctrlKey || 
-                e.key === '.' && e.target.value.toString().indexOf('.') > -1 ){
+             depositPercent.addEventListener("keyup", (e) => {
+               const input = parseInt(depositPercent.value);
+                if(!isNumber(input) || input > 50){
                   e.preventDefault();
                   e.target.value = "";
                   e.target.setAttribute("placeholder", "0"); 
-              return;
+                  return;
+                } else{
+                   depositPercent.value = input;
                 }
-
             }) 
-              
-              
-             
           } else {
             depositPercent.style.display = "none";
-            return depositPercent.value = valueSelect;
+            depositPercent.value = valueSelect;
           }
         }
         
@@ -200,11 +197,13 @@ let btnStart = document.querySelector('#start'),
             depositAmount.style.display = "inline-block";
             depositBank.addEventListener('change', this.changePercent);
             this.deposit = true;
+            
 
           } else{
             depositBank.style.display = "none";
             depositAmount.style.display = "none";            
             depositBank.removeEventListener('change', this.changePercent);
+            depositBank.value = "";
             this.deposit = false;
             
           }
@@ -222,11 +221,8 @@ let btnStart = document.querySelector('#start'),
           });
           btnStart.style.display = "none";
           btnCancel.style.display = "block";
-          depositPercent.style.display = "none";
-          depositBank.value = "";
-          depositCheck.setAttribute("checked", "none");
-          this.deposit = false;
-          
+        
+
         };
         restart(){
             inputs.forEach((element) =>{
@@ -249,6 +245,9 @@ let btnStart = document.querySelector('#start'),
             this.goal = 0,
             this.budgetDay = 0;
            
+            depositCheck.checked = false;
+            this.depositHandler();
+
             periodSelect.value = 1;
             periodAmount.innerHTML = periodSelect.value;
         };
