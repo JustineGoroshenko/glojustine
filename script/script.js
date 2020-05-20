@@ -3,6 +3,8 @@
 
 // eslint-disable-next-line strict
 window.addEventListener('DOMContentLoaded', () => {
+
+    // eslint-disable-next-line strict
     'use strict';
     function countTimer(deadline) {
         const timerHours = document.querySelector("#timer-hours"),
@@ -16,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 seconds = Math.floor(timeRemaining % 60),
                 minutes = Math.floor((timeRemaining / 60) % 60),
                 hours = Math.floor(timeRemaining / 60 / 60);
-            // day = Math.floor(timeRemaining / 60 / 60 / 24);
+
             return {
                 timeRemaining,
                 hours,
@@ -26,9 +28,9 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         function updateClock() {
             const timer = getTimeRemaining();
-            timerHours.textContent = timer.hours;
-            timerMinutes.textContent = timer.minutes;
-            timerSeconds.textContent = timer.seconds;
+            timerHours.textContent = timer.hours < 10 ? '0' + timer.hours : timer.hours;
+            timerMinutes.textContent = timer.minutes < 10 ? '0' + timer.minutes : timer.minutes;
+            timerSeconds.textContent = timer.seconds < 10 ? '0' + timer.seconds : timer.seconds;
             const x = setInterval(updateClock, 1000);
             if (timer.timeRemaining <= 0) {
                 clearInterval(x);
@@ -40,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         updateClock();
     }
-    countTimer('20 may 2020');
+    countTimer('21 may 2020');
 });
 
 
